@@ -5,7 +5,7 @@ def isSolvable(words, result):
 	CharAtfront = [0]*(26)
 	uniq = ""
 	for word in range(len(words)):
-		for i in range(len(words[word])):
+		for i in range(len(words[word])):s
 			ch = words[word][i]
 			Hash[ord(ch) - ord('A')] += pow(10, len(words[word]) - i - 1)
 			if mp[ord(ch) - ord('A')] == -1:
