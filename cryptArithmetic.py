@@ -24,4 +24,32 @@ def isSolvable(words, result):
 	mp = [-1]*(26)
 	return True
 def solve(words, i, S, mp, used, Hash, CharAtfront):
-	if i == len(words):
+    if i == len(words):
+        return S == 0
+
+    ch = words[i]
+    val = mp[ord(words[i]) - ord('A')]
+    if val != -1:
+        return solve(words, i + 1, S + val * Hash[ord(ch) - ord('A')], mp, used, Hash, CharAtfront)
+
+    x = False
+    for l in range(10):
+        if CharAtfront[ord(ch) - ord('A')] == 1 and l == 0:
+            continue
+        if used[l] == 1:
+            continue
+        
+        mp[ord(ch) - ord('A')] = l
+        used[l] = 1
+        x |= solve(words, i + 1, S + l * Hash[ord(ch) - ord('A')], mp, used, Hash, CharAtfront)
+        mp[ord(ch) - ord('A')] = -1
+        used[l] = 0
+
+    return x
+
+arr = [ "SIX", "SEVEN", "SEVEN" ]
+S = "TWENTY"
+if isSolvable(arr, S):
+	print("Yes")
+else:
+	print("No")
